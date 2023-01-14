@@ -22,7 +22,7 @@ const About = (props) => {
    const id = value.data.uid
    getDataAbout(id)
   },[])
-
+a
 
   const [message, setMessage] = useState({
     pesan: "",
