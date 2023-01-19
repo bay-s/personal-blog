@@ -69,3 +69,39 @@ export function isValidUrl(urlString){
 	  return !!urlPattern.test(urlString);
 }
 
+
+// GET PAGE
+export  async function getDataPage(){
+  const { data, error } = await supabase
+  .from('pages')
+  .select()
+  if(data){
+    console.log(data);
+    return data
+  }if(error) console.log(error.message);
+}
+
+
+// GET MENU
+
+export async function getMenus(){
+  const { data, error } = await supabase
+  .from('menu')
+  .select()
+  if(data){
+    console.log(data);
+    return data
+  }if(error) console.log(error);
+}
+
+// GET POST PAGE
+export  async function getPostPage(id){
+  const { data, error } = await supabase
+  .from('blog-info')
+  .select()
+  .eq('user_id',id)
+  if(data){
+    console.log(data);
+    return data
+  }if(error) console.log(error.message);
+}

@@ -6,7 +6,6 @@ import Home from "./pages/Home"
 import CreatePost from "./dashboard/create-post"
 import LoginPage from "./dashboard/login"
 import RegisterPages from "./dashboard/register"
-import Pages from "./pages/pages"
 import CreatePage from "./dashboard/create-pages"
 import NotFound from ".//pages/404not"
 import PostDetail from "./pages/post"
@@ -17,6 +16,7 @@ import PostByCategory from "./pages/post-by-category"
 import SearchResult from "./pages/search-result"
 import LandingPage from "./pages/landing-page"
 import Headers from "./pages/headers"
+import SinglePage from "./pages/single-page"
 
 
 
@@ -108,7 +108,7 @@ function App() {
       <Route path='/dashboard/edit-post/:id' element={isLogin ? <EditPost /> : <LoginPage  isLogin={isLogin}/>} />
       <Route path='/dashboard/edit-page/:id' element={isLogin ? <EditPage /> : <LoginPage  isLogin={isLogin}/>} />
       <Route path='/posts/:id' element={<SearchResult />} />
-      <Route path='/pages/:id' element={<Pages />} />
+      <Route path='/pages/:id' element={<SinglePage />} />
       <Route path='/post/category-name/:id' element={<GetPost />} />
       <Route path='/posts/category-name/:id' element={<PostByCategory />} />
       <Route path='*' element={<NotFound />} />

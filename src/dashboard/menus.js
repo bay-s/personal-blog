@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Header from '../pages/header';
 import supabase from '../supabase-config';
 import MenusLeft from './menus-left';
 import MenusRight from './menus-right';
-import Sidebar from './sidebar';
+
 
 
 const Menus = () => {
@@ -15,8 +14,9 @@ const Menus = () => {
       })
    const [inputCheck,setInputCheck] = useState(null)
    const checkContainer = useRef(null)
+
       useEffect(() => {
-        const fetchMenu = async () => {
+       const fetchMenu = async () => {
        const { data, error } = await supabase
        .from('menu')
        .select()
@@ -93,7 +93,6 @@ const data = {
     menusItem,
     checkContainer
    }
-
 
     return(
 <>

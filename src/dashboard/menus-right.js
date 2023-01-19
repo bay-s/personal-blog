@@ -1,21 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { AppContext } from '../App';
 import supabase from '../supabase-config';
+import { getDataPage, getMenus, getPostPage } from './get-data';
+import { setPostPage } from './insert-data';
 import MenusList from './menu-list';
 import MenusAccordion from './menus-accordion';
 
 
 const MenusRight= (props) => {
+  const {value} = useContext(AppContext)
   const [menus,setMenus] = useState([])
   const [names,setNames] = useState('')
+  const [options,setOptions] = useState([])
+  // const options = ['satu', 'dua', 'tiga'];
+  const [selectedOption, setSelectedOption] = useState("--Select--"); 
+
   const menuCheck = useRef(null)
   const [isSubmit,setIsSubmit] = useState(false)
   const [menusItem,setMenusItem] = useState({
     menu:[],
     saveMenu:[]
   })
+  
   const Menu = props.data.menusItem.tempMenu.map(menus => {
     return <MenusAccordion  menus={menus}  removeMenu={props.data.removeMenu}  openCollapse={props.openCollapse} data={props.data}/>
   })
+
   const menuList = menus.map(menus => {
      return menus.menu_item.map(menu => {
       return <MenusList  menus={menus} menu={menu} removeMenu={props.data.removeMenu} openCollapse={props.openCollapse} />
@@ -23,17 +33,37 @@ const MenusRight= (props) => {
   })
 
   useEffect(() => {
-   const fetchMenu = async () => {
-  const { data, error } = await supabase
-  .from('menu')
-  .select()
-  if(data){
-    console.log(data);
-    setMenus(data)
-  }if(error) console.log(error);
-   }
+   fetchPostPage()
    fetchMenu()
+   getPage()
   },[])
+
+  // GET PAGES
+const getPage = async () => {
+  const data = await getDataPage()
+  if(data){
+   setOptions(data)
+  }
+}
+
+// GET MENU
+const fetchMenu = async () => {
+  const data = await getMenus()
+  if(data){
+    setMenus(data)
+  }
+   }
+
+// GET POST PAGES
+const fetchPostPage = async () => {
+  const data = await getPostPage(value.data.uid)
+  console.log(data);
+  if(data){
+     data.forEach(el => {
+      setSelectedOption(el.post_page)
+     });
+  }
+   }
 
   const saveMenu = async (e) => {
     e.preventDefault()
@@ -108,9 +138,33 @@ const createMenu = async (e) => {
       else alert('Delete menus success')
     }
   }
+
+
+
+  const  handleChange = (event) => {
+    setSelectedOption(event.target.value);
+    if(selectedOption === '--Select---') {
+      setIsSubmit(false)
+     }else  setIsSubmit(true)
+  }
+   
+  const savePostPage = async (e) => {
+    e.preventDefault()
+    console.log(selectedOption)
+    const data = await setPostPage(selectedOption,value.data.uid)
+    if(data.status) {
+      alert(data.message)
+      setIsSubmit(true)
+      window.location.reload()
+    }
+    else {
+      alert(data.message)
+      setIsSubmit(false)
+    }
+  }
     return(
 <div className='box bg-dark w-100'>
-<form className='mb-3'  onSubmit={createMenu}>
+{/* <form className='mb-3'  onSubmit={createMenu}>
 <h3 className='is-bold is-title p-2 my-3 text-title'>
 Create Menus</h3>
 <div class="field has-addons">
@@ -123,7 +177,27 @@ Create Menus</h3>
     </button>
   </div>
 </div>
+</form> */}
+
+<div className='is-flex-column is-flex-gap-sm mb-6'>
+
+<h3 className='is-bold is-title p-2 text-title'>
+ Posts Page</h3>
+
+<form class="select is-primary w-100" onSubmit={savePostPage }>
+  <select className='w-100 has-text-dark' value={selectedOption} onChange={handleChange}>
+    <option value=''>--Select--</option>
+    {options.map(option => (
+          <option key={option.id} value={option.pages_title}>
+            {option.pages_title}
+          </option>
+    ))}
+  </select>
+  <button className={isSubmit ? 'button is-primary is-small mt-2' : 'hide'}>Submit</button>
 </form>
+
+</div>
+
 <h3 className='is-bold is-title p-2 text-title'>
         Menu structure</h3>
         {/* ACCORDION */}

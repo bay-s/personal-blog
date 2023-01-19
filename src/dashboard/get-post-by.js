@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import Header from '../pages/header';
 import supabase from '../supabase-config';
 import PostList from './post-list';
 import Sidebar from './sidebar';
@@ -25,7 +24,6 @@ getPost()
 
 return(
 <div id="app">
-<Header />
 <div class="container is-fluid my-5 pt-3">
 <div className='columns is-multiline'>
 {/* START SIDEBAR */}

@@ -67,7 +67,6 @@ const postCard = post.length < 1 ? "" : post.map(posts => {
 console.log(post.length < 1);
     return(
         <>
-        <Headers />
  <div className='container is-fluid is-max-widescreen my-5 post'>
       <article className='columns is-multilne single-container'>
           <div className='column is-3 box bg-dark'>

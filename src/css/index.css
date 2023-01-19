@@ -215,6 +215,11 @@ width: 100% !important; */
   top: 70px !important;
 }
 
+.home-sidebar{
+  position: sticky !important;
+  top: 70px !important;
+}
+
 .image{
   overflow: hidden !important;
   transition: 500ms !important;

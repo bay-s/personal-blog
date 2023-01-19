@@ -32,3 +32,14 @@ export async function insertDataAbout(id){
       console.log(data);
     }
   }
+
+
+export async function setPostPage(name,id){
+const { data, error } = await supabase.from('blog-info')
+ .update({ post_page:name})
+ .select()
+ .eq('user_id', id)
+ console.log(data)
+ if(error) return {status:false, message:`Something wrong ${error.message}`}
+ else return {status:true,message:'Set postpages success'}
+}

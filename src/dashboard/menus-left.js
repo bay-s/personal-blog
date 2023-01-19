@@ -1,24 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../App'
 import supabase from '../supabase-config'
+import { getDataPage } from './get-data'
 
 const MenusLeft = (props) => {
   const {value } = useContext(AppContext)
   const [menus,setMenus] = useState([])
 
   useEffect(() => {
-   fetchPost()
+    getPage()
   },[])
  
-  const fetchPost = async () => {
-   const { data, error } = await supabase
-   .from('pages')
-   .select()
-   if(data){
-     console.log(data);
+const getPage = async () => {
+  const data = await getDataPage()
+  if(data){
     setMenus(data)
-   }if(error) console.log(error.message);
   }
+}
  
 
     return(
