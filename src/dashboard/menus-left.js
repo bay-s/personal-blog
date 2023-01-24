@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../App'
 import supabase from '../supabase-config'
-import { getDataPage } from './get-data'
+import { getDataPage, getUserPosts } from './get-data'
 
 const MenusLeft = (props) => {
   const {value } = useContext(AppContext)
   const [menus,setMenus] = useState([])
+  const [post,setPost] = useState([])
 
   useEffect(() => {
     getPage()
@@ -13,9 +14,10 @@ const MenusLeft = (props) => {
  
 const getPage = async () => {
   const data = await getDataPage()
+  const posts = await getUserPosts(value.data.uid)
   if(data){
     setMenus(data)
-  }
+  }if(posts) setPost(posts)
 }
  
 
@@ -60,22 +62,20 @@ return <li key={menu.id}>
 {/* END ACCORDION HJEADER */}
 <div class="accordion-body">
   <div class="accordion-content">
-  <ul className='is-flex is-flex-column'>
-  <li>
+{/* SELECT POST */}
+ <ul className='is-flex is-flex-column is-flex-gap-sm'>
+{post.length < 1 ? "" : post.map(posts => {
+return <li key={posts.id}>
   <label class="b-checkbox checkbox">
-  <input type="checkbox" value="false" />
-  <span class="check is-size-7"></span>
-   <span className='px-2 is-size-7'>Music</span>
+  <input type="checkbox"  value={posts.post_title} data-id={posts.id} onChange={props.data.handlerChange} ref={props.data.checkContainer}/>
+  <span class="check is-size-6"></span>
+   <span className='px-2 is-size-7'>{posts.post_title}</span>
   </label>
   </li>
-  <li>
-  <label class="b-checkbox checkbox">
-  <input type="checkbox" value="false" />
-  <span class="check is-size-7"></span>
-   <span className='px-2 is-size-7'>About</span>
-  </label>
-  </li>
+})
+}
 </ul>
+{/* END SELECT POST */}
   </div>
   {/* END ACCORDION CONTENT */}
 </div>

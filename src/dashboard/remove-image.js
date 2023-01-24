@@ -9,4 +9,4 @@ const removeImages = async (images) => {
     else console.log(data);
    }
 
-   export default removeImages
+export default removeImages

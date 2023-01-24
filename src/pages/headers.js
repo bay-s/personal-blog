@@ -68,7 +68,7 @@ const menuList = menus.map(menus => {
 <ul className='is-flex justify-center align-center is-flex-gap-xl'>
 <li className="main-title hvr-underline-from-center py-3" >
 <Link  to='/'>
-    <h3 className='text-title is-title  is-bold main-title '>{siteInfo.blog_name == null ? 'Home' : siteInfo.blog_name }</h3>
+    <h3 className='text-title is-title  is-bold main-title '>Home</h3>
 </Link>
 </li>
 {menuList}

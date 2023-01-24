@@ -43,3 +43,27 @@ const { data, error } = await supabase.from('blog-info')
  if(error) return {status:false, message:`Something wrong ${error.message}`}
  else return {status:true,message:'Set postpages success'}
 }
+
+// UPDATE PROFILE
+
+export async function updateProfile(datas,id,option){
+  const { data, error } = await supabase
+  .from('users')
+  .update({
+     username:datas.username,
+     fullname:datas.fullname,
+     instagram_link:datas.instagram,
+     facebook_link:datas.facebook,
+     github_link:datas.github,
+     linkedin_link:datas.linkedin,
+     background:option,
+     banner_description:datas.description,
+     banner_title:datas.title
+    })
+  .eq('uid',id)
+  .select()
+  if(data){
+   return {status:true,pesan:'Update profile success'}
+  }else return {status:false,pesan:error.message}
+
+}

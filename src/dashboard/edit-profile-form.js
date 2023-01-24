@@ -3,6 +3,8 @@ import { AppContext } from '../App';
 import supabase from '../supabase-config';
 import UploadAvatar from './edit-avatar.js';
 import ErrorMessage from './error-message';
+import { isValidUrl } from './get-data';
+import { updateProfile } from './insert-data';
 
 const EditProfileForm = (props) => {
 
@@ -25,6 +27,7 @@ const options = [
   
   
 const [selectedOption, setSelectedOption] = useState(options[0]);
+
 const [message,setMessage] = useState({
   pesan:'',
   error:'',
@@ -76,38 +79,21 @@ if(datas.username.length < 1){
 
 const updateProfiles = async (e) => {
   e.preventDefault()
+ 
   setMessage({
     isSubmit:true
   })
 
-  if(datas.datas.instagram === '' || datas.datas.facebook || datas.datas.github || datas.datas.linkedin){}
-  else if(!isValidUrl(datas.datas.instagram) || !isValidUrl(datas.datas.facebook) || !isValidUrl(datas.datas.github) || !isValidUrl(datas.datas.linkedin) ){
-   const pesan = `URL ARE NOT VALID URL `
-   successMsg(pesan)
+  if(!datas.instagram && !datas.linkedin && !datas.github && !datas.facebook) {
+    console.log("its okay")
+  } else if(!isValidUrl(datas.instagram) || !isValidUrl(datas.facebook) || !isValidUrl(datas.github) || !isValidUrl(datas.linkedin) ){
+    const pesan = `URL ARE NOT VALID URL `
+    errorMsg(pesan)
     return
   }
-
-  const { data, error } = await supabase
-  .from('users')
-  .update({
-     username:datas.username,
-     fullname:datas.fullname,
-     instagram_link:datas.instagram,
-     facebook_link:datas.facebook,
-     github_link:datas.github,
-     linkedin_link:datas.linkedin,
-     background:selectedOption,
-     banner_description:datas.description,
-     banner_title:datas.title
-    })
-  .eq('id',value.data.id)
-  .select()
-  if(data){
-    const pesan = `Update Profile succes`
-    successMsg(pesan)
-  }if(error){
-    errorMsg(error)
-  }
+  const update = await updateProfile(datas,value.data.uid,selectedOption)
+  if(update.status) successMsg(update.pesan)
+  else errorMsg(update.pesan)
 }
 
 const successMsg = (pesan) => {
@@ -121,7 +107,7 @@ const successMsg = (pesan) => {
 
 const errorMsg = (error) => {
   setMessage({
-    pesan:`Something wrong ${error.message}`,
+    pesan:`Something wrong ${error}`,
     error:true,
     sukses:false,
     isSubmit:false
@@ -133,15 +119,6 @@ const handleChange = (event) => {
 }
 
 // CHECK URL 
-const isValidUrl = urlString => {
-	const urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
-	    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
-	    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
-	    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
-	    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
-	    '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
-	  return !!urlPattern.test(urlString);
-}
 
     return(
  <div className='px-5 text-white bg-dark py-2'>
@@ -200,7 +177,9 @@ const isValidUrl = urlString => {
 <div class="field">
   <label class="label text-white">Banner Description</label>
   <div class="control">
-  <textarea class="textarea text-white bg-transparent is-primary" defaultValue={value.data.banner_description}  name='description' onChange={ handlerChange}></textarea>
+  <textarea class="textarea text-white bg-transparent is-primary" defaultValue={value.data.banner_description} name='description' onChange={ handlerChange}>
+
+  </textarea>
   </div>
 </div>
 

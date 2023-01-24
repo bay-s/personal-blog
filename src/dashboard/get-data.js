@@ -105,3 +105,14 @@ export  async function getPostPage(id){
     return data
   }if(error) console.log(error.message);
 }
+
+export async function getUserPosts(id){
+  const { data, error } = await supabase
+  .from('posts')
+  .select()
+  .eq('author_id',id)
+  if(data){
+    console.log(data);
+    return data
+  }if(error) console.log(error.message);
+}

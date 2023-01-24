@@ -23,7 +23,6 @@ const About = (props) => {
    getDataAbout(id)
   },[])
 
-
   const [message, setMessage] = useState({
     pesan: "",
     isError: false,
@@ -63,8 +62,7 @@ console.log( value.data.uid)
       return;
     }
 
-    const { data,error } = await supabase
-    .from('about')
+    const { data,error } = await supabase.from('about')
     .update({ 
       about_content:values.quill,
       thumbnail:values.imgUrl,
