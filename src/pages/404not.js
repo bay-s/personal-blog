@@ -6,7 +6,6 @@ function  NotFound (){
 
         return(
           <>
-            <Headers />
 <section className="hero  mt-5 pt-5">
   <div className="hero-body">
     <p className="subtitle text-center">

@@ -46,9 +46,9 @@ const catList = skills.length < 1 ? "" : skills.map((skill,index) => {
   {index + 1}
         </td>
         <td class="is-image-cell">
-          <div class="image">
-        <img src={skill.thumbnail} class="is-rounded fit" />
-         </div>
+        <div class="image">
+        <img src={skill.thumbnail} class="fit thumbs" />
+        </div>
         </td>
         <td data-label="Name">
         <Link to={`/posts/category-name/${skill.skill}`}>{skill.project_name}</Link>

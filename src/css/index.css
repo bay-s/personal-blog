@@ -404,6 +404,11 @@ body {
   object-fit: cover !important;
 }
 
+.image .thumbs{
+  height: 100%;
+  border-radius: 50% !important;
+}
+
 .bg-lgreen{
   background-color: var(--lightGreen) !important;
 }

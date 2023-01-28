@@ -140,7 +140,7 @@ const errorMsg = (error) => {
 }
 
       //  ADD SKILLS
-      const addProject = async (e) => {
+    const addProject = async (e) => {
        e.preventDefault()
 
       if(!values.project || !values.imgUrl){
@@ -170,6 +170,7 @@ const errorMsg = (error) => {
         const pesan = 'Add skill success !'
         console.log(data)
         successMsg(pesan)
+        window.location.reload()
       }
 
       };
