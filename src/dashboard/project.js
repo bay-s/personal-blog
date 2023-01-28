@@ -215,7 +215,7 @@ Add New Project
 
 
 <div class="field">
-  <label class="label is-size-7 is-title">Project</label>
+  <label class="label is-size-7 is-title">Project Name</label>
   <div class="control">
     <input class="input is-info" type="text" name='project' onChange={handlerChanges }/>
   </div>

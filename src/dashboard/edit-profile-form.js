@@ -26,7 +26,7 @@ const options = [
   ]
   
   
-const [selectedOption, setSelectedOption] = useState(options[0]);
+const [selectedOption, setSelectedOption] = useState('');
 
 const [message,setMessage] = useState({
   pesan:'',
@@ -42,7 +42,8 @@ const [datas,setDatas] = useState({
   github:'',
   linkedin:'',
   description:'',
-  title:''
+  title:'',
+  background:''
 })
 
 
@@ -58,6 +59,7 @@ useEffect(() => {
      description:value.data.banner_description,
      title:value.data.banner_title
     })
+    setSelectedOption(value.data.background);
 },[])
 
 const handlerChange = (e) => {

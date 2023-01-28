@@ -42,7 +42,9 @@ const Gallery = () => {
   <figure class="image is-16by9" onClick={() => setToggler(!toggler)}>
   <img src={item.thumbnail} />
 </figure>
+<a href={item.link} target="_blank">
 <h4 className='text-center p-1'>{item.project_name}</h4>
+</a>
   </div>
    </div>
             })
