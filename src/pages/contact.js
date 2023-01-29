@@ -21,9 +21,9 @@ const Contact = () => {
 }
 
     return(
-       <div className='about p-50' id='contact'>
+ <div className='about p-50' id='contact'>
        <div className='is-flex align-center is-flex-gap-xl mb-6 px-6'>
-       <i class="fa fa-envelope text-white icons" aria-hidden="true"></i>
+       <i class="fa fa-envelope text-white icons mail" aria-hidden="true"></i>
        <p className='has-text-white-ter is-size-5'>
        Here is where you should write your message to readers to have them get in contact with you.
        </p>

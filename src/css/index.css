@@ -745,7 +745,7 @@ border: 1px solid var(--lightGreen) !important;
 .banner .banner-text{
   position: absolute;
   top: 40%;
-  left: 25%;
+  left: 15%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
@@ -768,6 +768,7 @@ cursor: pointer;
 .about-text{
   color: white !important;
 }
+
 
 .about-text h1 strong{
   color: white !important;
@@ -1005,7 +1006,102 @@ transition: 250ms;
   color: #0a0a0a
 }
 
+.toggle-menu{
+  display: none !important;
+}
 
+/* 
+================================
+BOX
+================================
+*/
+
+/* ACCORDION */
+.accordion-menu {
+
+}
+
+.accordion-menu h3{
+text-align: center !important;
+font-size: 24px ;
+color: white;
+}
+.accordion-menu a{
+  text-align: center !important;
+  font-size: 14px !important;
+  color: white;
+  }
+.accordion-item {
+  position: relative;
+  cursor: pointer;
+}
+
+
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.open {
+  max-height: 100%; /* adjust this value to the max height of your content */
+}
+
+.active {
+  /* background-color: #ccc; */
+}
+
+/* END ACCORDION */
+
+.hidden-menu ul li span a:hover:after{
+  content: " ";
+  transition: 600ms;
+  height: 5px;
+  width: 100%;
+  position: relative;
+  background-color:white;
+  top:-30px;
+  display: block;
+  }
+
+  
+.hidden-menu{
+  transition: 500ms;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+z-index: 10;
+width: 100%;
+height: 100%;
+transform: translateY(-669px);
+}
+
+
+.hidden-menu ul{
+  display: flex;
+  margin-top: 100px;
+  align-items: center;
+flex-direction: column;
+gap: 50px;
+transition: 500ms;
+}
+
+.hidden-menu a{
+  color: white;
+  text-decoration: none;
+  font-size: 50px;
+  position: relative;
+  transition: 500ms;
+}
+
+/* 
+====================================================
+END BOX
+===================================================
+*/
 /* START RESPONSIVE */
 @media (max-width:999px){
 .captions .title{
@@ -1013,6 +1109,17 @@ transition: 250ms;
 }
 }
 
+@media (max-width:850px){
+  .opens{
+    transform: translateY(0);
+    background-color: #7f5a83;
+    background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+  }
+  
+  .about{
+    padding: 15px !important;
+  }   
+}
 @media (max-width:772px){
   .home-container{
     display: flex !important;
@@ -1036,11 +1143,64 @@ transition: 250ms;
  }
 }
 
+@media (max-width:700px){
+.navbar{
+margin: 0 50px !important;
+}
+.navbar ul{
+  gap: 25px !important;
+}
+}
+
+@media (max-width:620px){
+#navbar-menu{
+  display: inline !important;
+  display: none !important;
+}
+
+.toggle-menu{
+  display: block !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+}
+
+.navbar{
+  justify-content: space-between !important;
+}
+} 
+
+
+@media (max-width:600px){
+  .banner .banner-text{
+  width: 100% !important;
+   }
+
+.banner .banner-text{
+  left: 1%;
+}
+
+} 
+
+@media (max-width:460px){
+  .banner .banner-text{
+    left: 0;
+    right: 2%;
+     }
+
+     .banner .banner-text h1{
+      font-size: 28px;
+      white-space: break-spaces;
+     }
+}
+
 @media (max-width:550px) {
   .sidebar-container{
     flex-direction: column !important;
   }
-
+  
+  .mail{
+    display: none !important;
+  }
   .captions .title{
     font-size: 16px !important;
   }

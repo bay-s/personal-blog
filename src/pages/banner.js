@@ -29,7 +29,7 @@ const Banner = () => {
     return(
         <div className='banner '>
             <ParticlesBg type={value.data.background === '' ? "circle" : value.data.background} bg={true} />
-            <section className='is-flex-column is-flex-gap-md align-center mx-auto text-center banner-text w-50'>
+            <section className='is-flex-column is-flex-gap-md align-center mx-auto text-center banner-text w-75'>
                 <h1 className='text-white is-title is-bold'>
                 {
                     banner.banner_title ===  null || "" ? 'Your Page title here edit via dashboard' 

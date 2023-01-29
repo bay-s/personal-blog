@@ -62,15 +62,28 @@ const menuList = menus.map(menus => {
   })
 })
 
+const dropMenu = useRef(null)
+const [activeIndex, setActiveIndex] = useState(-1); // state to track the active menu item
+
+const dropDown = (e) => {
+  e.preventDefault()
+  const showMenu = dropMenu.current
+  showMenu.classList.toggle('opens')
+}
+
+const handleClick = (index) => {
+    setActiveIndex(index === activeIndex ? -1 : index);
+}
+
+
     return(
+   <>
 <header className='headers p-2 ' ref={header}>
-<nav className="navbar mx-5 bg-transparent is-flex justify-center align-center container" role="navigation" aria-label="main navigation">
-<ul className='is-flex justify-center align-center is-flex-gap-xl'>
-<li className="main-title hvr-underline-from-center py-3" >
-<Link  to='/'>
+<nav className="navbar mx-5 bg-transparent is-flex justify-center is-flex-gap-md align-center container" role="navigation" aria-label="main navigation">
+<Link className='main-title hvr-underline-from-center py-3' to='/'>
     <h3 className='text-title is-title  is-bold main-title '>Home</h3>
 </Link>
-</li>
+<ul className='is-flex justify-center align-center is-flex-gap-xl' id='navbar-menu'>
 {menuList}
 <li className='hvr-underline-from-center py-3'><Link to='/dashboard/index' className=' has-text-white'>Dashboard</Link></li>
 <li className={value.isLogin ? '' : 'hide'}>
@@ -115,8 +128,47 @@ const menuList = menus.map(menus => {
 </li>
 </ul>
 
+{/* TOGGLE  */}
+<i class="fa fa-bars is-clickable text-white toggle-menu" aria-hidden="true" onClick={dropDown}></i>
 </nav>
 </header>
+         <div class="hidden-menu" ref={dropMenu}>
+            <ul className='is-flex-column is-flex-gap-md align-center'>
+            {menuList}
+            {/* start accordion */}
+            <div className="accordion-menu is-flex-column">
+            <div className="accordion-item" onClick={() => handleClick(0)}>
+                <h3 className={activeIndex === 0 ? "active " : ""}>Profiles</h3>
+                <div className={`accordion-content ${activeIndex === 0 ? "open" : ""}`}>
+                <Link className="dropdown-item  is-flex align-center is-flex-gap-md" to={`/profiles/${value.data.username}`} >
+    <span className="icon"><i className="fa fa-user text-white"></i></span>
+    <span className='text-white'>My Profile</span>
+    </Link>
+    <Link className="dropdown-item is-flex align-center is-flex-gap-md" to='/dashboard/create-post'>
+    <span className="icon"><i class="fa fa-plus-square-o text-white" aria-hidden="true"></i></span>
+    <span className='text-white'>Create Post</span>
+    </Link>
+    <Link className="dropdown-item is-flex align-center is-flex-gap-md" to='/dashboard/index/'>
+    <span className="icon"> <i class="fa fa-lock text-white" aria-hidden="true"></i></span>
+    <span className='text-white'>DashBoard</span>
+    </Link>
+    <Link className="dropdown-item is-flex align-center is-flex-gap-md" to='/dashboard/edit-profile'>
+    <span className="icon"><i className="fa fa-cog text-white"></i></span>
+    <span className='text-white'>Settings</span>
+    </Link>
+    <hr class="dropdown-divider" />
+    <a href="#" class="dropdown-item is-flex align-center is-flex-gap-md">
+    <span className="icon"><i className="fa fa-sign-out text-white"></i></span>
+    <span onClick={Logout} className='text-white'>Log Out</span>
+    </a>
+                </div>
+            </div>
+          </div>
+        
+            {/* end accordion */}
+            </ul>
+          </div>
+</>
     )
 }
 
